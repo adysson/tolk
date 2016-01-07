@@ -1,11 +1,15 @@
-<h3 class="search">
-  <%= render :partial => "form", :locals => { :locale => @locale } %>
-</h3>
+<header>
+  <h1>Search Translations</h1>
 
-<div class="search_exits">
-  <%= link_to "Phrases missing translation", @locale %>
-  &nbsp;
-  <%= link_to "Completed translations", tolk.all_locale_path(@locale) %>
+  <div class="search_exits">
+    <%= link_to "Missing #{@locale.language_name.downcase} translations", @locale %>
+    &nbsp;
+    <%= link_to "Completed #{@locale.language_name.downcase} translations", tolk.all_locale_path(@locale) %>
+  </div>
+</header>
+
+<div class="search">
+  <%= render :partial => "form", :locals => { :locale => @locale } %>
 </div>
 
 <div class="translations">
