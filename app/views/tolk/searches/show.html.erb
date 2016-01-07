@@ -15,7 +15,7 @@
         <tr>
           <th class="translation"><%= @locale.language_name -%></th>
           <th class="actions"></th>
-          <th class="key"><%= Tolk::Locale.primary_language_name -%></th>
+          <th class="key"><%= render :partial => "tolk/locales/source_languages" %></th>
         </tr>
         <% @phrases.each do |phrase| %>
 
@@ -35,9 +35,17 @@
                 <%= text_area_tag :"translations[][original_text]", format_i18n_text_area_value(phrase.translations.primary.text), :disabled => true %>
 
                 <% if params[:q].present? -%>
-                  <%= highlight(format_i18n_value(phrase.translations.primary.text), params[:q]) -%>
+                  <% if params[:source].present? -%>
+                    <%= highlight(format_i18n_value(phrase.translations.where(locale_id: params[:source]).first.try(:text)), params[:q]) -%>
+                  <% else -%>
+                    <%= highlight(format_i18n_value(phrase.translations.primary.text), params[:q]) -%>
+                  <% end -%>
                 <% else -%>
-                  <%= format_i18n_value(phrase.translations.primary.text) -%>
+                  <% if params[:source].present? -%>
+                    <%= format_i18n_value(phrase.translations.where(locale_id: params[:source]).first.try(:text)) -%>
+                  <% else -%>
+                    <%= format_i18n_value(phrase.translations.primary.text) -%>
+                  <% end -%>
                 <% end -%>
                 <%= boolean_warning if phrase.translations.primary.boolean? -%>
 
@@ -49,8 +57,8 @@
           <% end %>
         <% end %>
       </table>
-      <div class="table_submit">
-        <p><%= locale_form.submit "Save changes", :class => 'save' %></p>
+      <div class="actions">
+        <%= locale_form.submit "Save" %>
       </div>
     <% end %>
     <div class="paginate">

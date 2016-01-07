@@ -1,5 +1,5 @@
 <header>
-  <h1 class="switch">Completed translations</h1>
+  <h1 class="switch">Completed <%= @locale.language_name %> Translations</h1>
   <p><%= link_to 'See missing translation', @locale %></p>
 </header>
 
@@ -18,7 +18,7 @@
       <tr>
         <th class="translation"><%= @locale.language_name -%></th>
         <th class="actions"></th>
-        <th class="key"><%= Tolk::Locale.primary_language_name -%></th>
+        <th class="key"><%= render :partial => "tolk/locales/source_languages" %></th>
       </tr>
       <% @phrases.each do |phrase| %>
         <% if phrase.translations.primary %>
@@ -46,6 +46,8 @@
                   <span class="key">Previous</span>
                   <%= format_i18n_value(phrase.translations.primary.previous_text) -%>
                 </div>
+              <% elsif params[:source].present? %>
+                <%= format_i18n_value(phrase.translations.where(locale_id: params[:source]).first.try(:text)) -%>
               <% else %>
                 <%= format_i18n_value(phrase.translations.primary.text) -%>
                 <%= boolean_warning if phrase.translations.primary.boolean? -%>
