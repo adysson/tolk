@@ -7,6 +7,8 @@
   <span class="notice">Some phrases have changed. <%= link_to "Update translations", tolk.updated_locale_path(@locale) %>.</span>
 <% end %>
 
+<%= render :partial => 'tolk/locales/hints' %>
+
 <div class="search">
   <%= render :partial => "tolk/searches/form", :locals => { :locale => @locale } %>
 </div>
