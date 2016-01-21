@@ -52,7 +52,7 @@ div#head {
 }
 
 div#head a {
-  color: #2fadcf;
+  color: #75B72A;
   font-weight: bold;
   text-decoration: none;
 }
@@ -146,7 +146,13 @@ ul.locales li {
 ul.locales a {
   font-weight: bold;
   text-decoration: underline;
-  color: #2fadcf;
+  color: #75B72A;
+}
+
+ul.locales a:hover {
+  color: #3D9C3A;
+  background: transparent;
+  text-decoration: none;
 }
 
 /*ul.locales li:hover {
@@ -216,7 +222,7 @@ div.table_submit input.save {
 
 
 div.translations {
-  width: 96%;
+  width: 100%;
   text-align: center;
 }
 
@@ -403,7 +409,7 @@ table.translations th a:hover {
 
 div#hints {
   width: 38em;
-  margin: -65px 0 20px 540px;
+  margin: -65px 0 20px 584px;
   padding: 5px 10px;
   background-color: #f9edbe;
   border: 1px solid #f0c36d;
