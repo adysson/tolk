@@ -19,7 +19,7 @@ $(function () {
     window.onbeforeunload = confirm;
   });
 
-  $("input.save, input.apply").click(function () {
+  $("div.actions input[type=submit]").click(function () {
     window.onbeforeunload = null;
   });
 
