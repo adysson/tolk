@@ -3,25 +3,16 @@ module Tolk
     before_filter :find_locale, :only => [:show, :all, :update, :updated]
     before_filter :find_source_language_name, :only => [:show]
     before_filter :ensure_no_primary_locale, :only => [:all, :update, :show, :updated]
-    skip_load_and_authorize_resource
+
+    skip_load_resource
     load_resource :find_by => :name
     authorize_resource
 
     def index
-      # hotfix
-      # todo: rewrite to use Ability instead of this redirect
-      redirect_to locale_path(@current_user.language.locale_shortcut) if @current_user.manager?
-
       @locales = Tolk::Locale.secondary_locales.sort_by(&:language_name)
     end
 
     def show
-      # hotfix
-      # todo: rewrite to use Ability instead of this redirect
-      if @current_user.manager? && @current_user.language.locale_shortcut != @locale.name
-        redirect_to locale_path(@current_user.language.locale_shortcut)
-      end
-
       respond_to do |format|
         format.html do
           @phrases = @locale.phrases_without_translation(params[pagination_param])
