@@ -36,6 +36,8 @@ module Tolk
     cattr_accessor :special_keys
     self.special_keys = ['activerecord.models']
 
+    scope :not_like, -> (key) { where.not("key LIKE '#{key}'") }
+
     class << self
       def primary_locale(reload = false)
         @_primary_locale = nil if reload
@@ -99,7 +101,7 @@ module Tolk
     end
 
     def phrases_without_translation(page = nil)
-      phrases = Tolk::Phrase.all.order('tolk_phrases.key ASC')
+      phrases = Tolk::Phrase.not_like('wice_grid%').order('tolk_phrases.key ASC')
 
       existing_ids = self.translations(:select => 'tolk_translations.phrase_id').map(&:phrase_id).uniq
       phrases = phrases.where('tolk_phrases.id NOT IN (?)', existing_ids) if existing_ids.present?
