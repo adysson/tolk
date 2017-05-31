@@ -91,7 +91,7 @@ module Tolk
 
     def count_phrases_without_translation
       existing_ids = self.translations(:select => 'tolk_translations.phrase_id').map(&:phrase_id).uniq
-      Tolk::Phrase.count - existing_ids.count
+      Tolk::Phrase.not_starting_with_text('wice_grid').count - existing_ids.count
     end
 
     def count_phrases_with_updated_translation(page = nil)
@@ -99,7 +99,7 @@ module Tolk
     end
 
     def phrases_without_translation(page = nil)
-      phrases = Tolk::Phrase.all.order('tolk_phrases.key ASC')
+      phrases = Tolk::Phrase.not_starting_with_text('wice_grid').order('tolk_phrases.key ASC')
 
       existing_ids = self.translations(:select => 'tolk_translations.phrase_id').map(&:phrase_id).uniq
       phrases = phrases.where('tolk_phrases.id NOT IN (?)', existing_ids) if existing_ids.present?
@@ -222,7 +222,7 @@ module Tolk
     end
 
     def find_phrases_with_translations(page, conditions = {})
-      result = Tolk::Phrase.where({ :'tolk_translations.locale_id' => self.id }.merge(conditions)).joins(:translations).order('tolk_phrases.key ASC').public_send(pagination_method, page)
+      result = Tolk::Phrase.where({ :'tolk_translations.locale_id' => self.id }.merge(conditions)).not_starting_with_text('wice_grid').joins(:translations).order('tolk_phrases.key ASC').public_send(pagination_method, page)
 
       result.each do |phrase|
         phrase.translation = phrase.translations.for(self)
