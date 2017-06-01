@@ -9,12 +9,13 @@
   <%= csrf_meta_tags %>
 
   <%= yield :head %>
+  <link href="https://fonts.googleapis.com/css?family=Signika:300,400,600,700" rel="stylesheet">
 </head>
 
 <body>
-  <div id="container">
-    <%= render partial: 'header' %>
+  <%= render partial: 'header' %>
 
+  <div id="container">
     <%= yield %>
   </div>
 

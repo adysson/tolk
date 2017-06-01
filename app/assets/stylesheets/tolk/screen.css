@@ -27,7 +27,7 @@ Layout
 -------------------------------------------------*/
 
 body {
-  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  font-family: 'Signika', sans-serif;
   background: #e5e5e5;
   color: #333;
   margin: 0;
@@ -124,6 +124,10 @@ h2 span,
 h3 span {
   font-size: 13px;
   color: #888;
+}
+
+div#container {
+  margin: 45px 50px 0 50px;
 }
 
 ul.locales {
@@ -274,20 +278,14 @@ table.translations {
 table.translations td,
 table.translations th {
   font-size: 14px;
-  color: #222;
   padding: 12px 8px;
   border-bottom: 1px solid #e5e5e5;
   vertical-align: top;
   width: 48%;
 }
 
-table.translations th {
-  border-bottom-color: #bbb;
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #999;
-  padding-bottom: 2px;
+table.translations td {
+  color: #222;
 }
 
 table.translations th.actions {
@@ -398,18 +396,9 @@ div.paginate .disabled {
   border-color: #eee;
 }
 
-table.translations th a {
-  color: #999;
-}
-
-table.translations th a:hover {
-  background-color: white;
-  text-decoration: none;
-}
-
 div#hints {
   width: 38em;
-  margin: -65px 0 20px 584px;
+  margin: -65px 0 20px 584px !important;
   padding: 5px 10px;
   background-color: #f9edbe;
   border: 1px solid #f0c36d;
