@@ -258,6 +258,8 @@ module Tolk
     def scoped_phrases
       scoped_phrases = Tolk::Phrase.not_starting_with_text('wice_grid')
       scoped_phrases = scoped_phrases.not_starting_with_text('ui') if NAMES_WITH_UI_TRANSLATIONS.exclude?(name)
+      scoped_phrases = scoped_phrases.not_starting_with_text('activerecord') if NAMES_WITH_UI_TRANSLATIONS.exclude?(name)
+      scoped_phrases = scoped_phrases.not_starting_with_text('errors.messages') if NAMES_WITH_UI_TRANSLATIONS.exclude?(name)
       scoped_phrases
     end
 
