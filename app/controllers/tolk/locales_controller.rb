@@ -9,7 +9,7 @@ module Tolk
     authorize_resource
 
     def index
-      @locales = Tolk::Locale.secondary_locales.sort_by(&:language_name)
+      @locales = Tolk::Locale.accessible_by(current_ability).where.not(name: Tolk::Locale.primary_locale.name).sort_by(&:language_name)
     end
 
     def show
